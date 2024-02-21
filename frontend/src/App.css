@@ -6,6 +6,7 @@ body {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: space-evenly;
   border-top: 5px solid rgb(41, 41, 41);
   border-bottom: 5px solid rgb(41, 41, 41);
   height: "75vh";
@@ -15,8 +16,7 @@ body {
 }
 
 .skill {
-  font-size: 24px;
-  width: 440px;
+  font-size: 36px;
   margin-right: 25px;
   display: flex;
   flex-direction: row;
@@ -25,6 +25,7 @@ body {
   align-items: center;
 }
 .skill-name {
+  font-size: 36px;
   width: 180px;
   margin-right: 25px;
   overflow-wrap: anywhere;
@@ -32,6 +33,49 @@ body {
 .skill-bar {
   width: 250px;
   background-color: dimgrey;
-  height: calc(1vw + 1vh);
+  height: 25px;
   border-radius: 5px;
+}
+.skill-level {
+  font-size: 36px;
+  margin-left: 40px;
+}
+.skill-up {
+  font-weight: bold;
+  color: greenyellow;
+  margin-left: 20px;
+}
+.skill-down {
+  font-weight: bold;
+  color: orange;
+  margin-left: 20px;
+  padding-bottom: 8px;
+}
+.skill-delete {
+  font-weight: bold;
+  color: red;
+  margin-left: 20px;
+  padding-bottom: 8px;
+}
+.Prompt {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.Prompt-Box {
+  opacity: 100%;
+  background-color: #ffffff;
+  width: 30vw;
+  height: 30vh;
+}
+.Prompt-Background {
+  background-color: black;
+  height: 100vh;
+  width: 100vw;
+  padding: -10px;
+  margin: -10px;
+  opacity: 25%;
 }
