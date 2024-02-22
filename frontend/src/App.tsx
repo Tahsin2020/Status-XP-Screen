@@ -1,10 +1,23 @@
 import useWindowDimensions from "./components/windowDimensions";
 
 import "./App.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+type Skill = {
+  skill_name: string;
+  skill_level: Number;
+  skill_progress: Number;
+};
 
 const App = () => {
   const [AddSkill, setAddSkill] = useState(false);
+  var dict_skills = {};
+  var data_skills: Skill[] = [];
+
+  useEffect(() => {
+    console.log(data_skills);
+  }, []);
+
   const [skills, setSkills] = useState({
     "Meditation Breathing": [2, 30],
     "Meditation Sensing": [3, 60],
@@ -22,7 +35,7 @@ const App = () => {
 
     if (skills[Skill_Title] == undefined) {
       var copy_skills = { ...skills };
-      copy_skills[Skill_Title][0] = Skill_Level;
+      copy_skills[Skill_Title] = [Skill_Level, 30];
       setSkills(copy_skills);
     }
     setAddSkill(false);
@@ -30,17 +43,6 @@ const App = () => {
 
   return (
     <div style={{ height: "100%" }}>
-      {width} by {height} pixels
-      <div className="Player-Card">
-        <div className="Player-Icon">
-          <div className="Player-Icon-Letter">T</div>
-        </div>
-        <div className="Player-Info">
-          <div className="Player-Name">Tahsin Hasan</div>
-          <div className="Player-Title">Full Stack Software Engineer</div>
-          <div className="Player-Level">Level 50</div>
-        </div>
-      </div>
       {AddSkill ? (
         <div className="Prompt">
           <div className="Prompt-Box">
@@ -85,6 +87,17 @@ const App = () => {
       ) : (
         <></>
       )}
+      {width} by {height} pixels
+      <div className="Player-Card">
+        <div className="Player-Icon">
+          <div className="Player-Icon-Letter">T</div>
+        </div>
+        <div className="Player-Info">
+          <div className="Player-Name">Tahsin Hasan</div>
+          <div className="Player-Title">Full Stack Software Engineer</div>
+          <div className="Player-Level">Level 50</div>
+        </div>
+      </div>
       <div className="skill-table">
         {Object.keys(skills).map((key: String) => {
           return (
