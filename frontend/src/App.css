@@ -2,6 +2,43 @@ html,
 body {
   background-color: rgba(19, 19, 19, 255);
 }
+
+.Player-Card {
+  height: 30vh;
+  padding: 100px;
+  display: flex;
+}
+.Player-Icon {
+  background-color: black;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 5px solid #666666;
+  border-radius: 100px;
+}
+.Player-Icon-Letter {
+  font-size: 128px;
+  color: #666666;
+  background-color: black;
+}
+.Player-Info {
+  padding: 20px;
+}
+.Player-Name {
+  font-size: 64px;
+  color: white;
+}
+.Player-Title {
+  font-size: 36px;
+  color: darkgreen;
+}
+.Player-Level {
+  font-size: 64px;
+  color: white;
+}
+
 .skill-table {
   display: flex;
   flex-direction: row;
@@ -9,7 +46,7 @@ body {
   justify-content: space-evenly;
   border-top: 5px solid rgb(41, 41, 41);
   border-bottom: 5px solid rgb(41, 41, 41);
-  height: "75vh";
+  max-height: 75vh;
   color: #ffffff;
   padding-left: 5%;
   padding-bottom: 5%;
@@ -25,13 +62,13 @@ body {
   align-items: center;
 }
 .skill-name {
-  font-size: 36px;
-  width: 180px;
+  font-size: calc(2vw+2vh);
+  width: calc(20vw);
   margin-right: 25px;
   overflow-wrap: anywhere;
 }
 .skill-bar {
-  width: 250px;
+  width: 120px;
   background-color: dimgrey;
   height: 25px;
   border-radius: 5px;
@@ -41,17 +78,20 @@ body {
   margin-left: 40px;
 }
 .skill-up {
+  cursor: pointer;
   font-weight: bold;
   color: greenyellow;
   margin-left: 20px;
 }
 .skill-down {
+  cursor: pointer;
   font-weight: bold;
   color: orange;
   margin-left: 20px;
   padding-bottom: 8px;
 }
 .skill-delete {
+  cursor: pointer;
   font-weight: bold;
   color: red;
   margin-left: 20px;
@@ -64,18 +104,32 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: -10px;
+  margin: -10px;
 }
 .Prompt-Box {
   opacity: 100%;
   background-color: #ffffff;
   width: 30vw;
   height: 30vh;
+  border: 10px solid gray;
 }
-.Prompt-Background {
-  background-color: black;
-  height: 100vh;
-  width: 100vw;
-  padding: -10px;
-  margin: -10px;
-  opacity: 25%;
+.form {
+  height: 100%;
+  width: 100%;
+  padding: 40px;
+}
+.form-input {
+  border: 1px solid black;
+  padding: 10px;
+  margin: 5px;
+}
+.Skill-Add {
+  background-color: skyblue;
+  color: white;
+  border-radius: 10px;
+  width: 400px;
+  font-size: 24px;
+  padding: 10px;
 }
