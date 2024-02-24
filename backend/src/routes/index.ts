@@ -1,9 +1,9 @@
 import { Router } from "express";
-import questionRoutes from "./question-routes.js";
+import userRoutes from "./user-routes.js";
 // I have to write my routes here.
 
 const appRouter = Router();
 
-appRouter.use("/question", questionRoutes);
+appRouter.use("/user", userRoutes);
 
 export default appRouter;

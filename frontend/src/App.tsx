@@ -1,5 +1,5 @@
 import useWindowDimensions from "./components/windowDimensions";
-
+import data from "./skills.json";
 import "./App.css";
 import { useState, useEffect } from "react";
 
@@ -11,12 +11,7 @@ type Skill = {
 
 const App = () => {
   const [AddSkill, setAddSkill] = useState(false);
-  var dict_skills = {};
   var data_skills: Skill[] = [];
-
-  useEffect(() => {
-    console.log(data_skills);
-  }, []);
 
   const [skills, setSkills] = useState({
     "Meditation Breathing": [2, 30],
