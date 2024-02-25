@@ -9,8 +9,8 @@ import { verifyToken } from "../utils/token-manager.js";
 const skillRoutes = Router();
 
 skillRoutes.get("/:username/", verifyToken, getSkills);
-skillRoutes.post("/:username/modify/bio", verifyToken, modifySkill);
-skillRoutes.post("/:username/modify/education", verifyToken, addSkill);
-skillRoutes.post("/:username/modify/experience", verifyToken, deleteSkill);
+skillRoutes.post("/:username/modify/", verifyToken, modifySkill);
+skillRoutes.post("/:username/add/", verifyToken, addSkill);
+skillRoutes.post("/:username/delete/", verifyToken, deleteSkill);
 
 export default skillRoutes;

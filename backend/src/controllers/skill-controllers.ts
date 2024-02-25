@@ -80,47 +80,21 @@ export const modifySkill = async (
     //privateprofile signup
     const user = await User.findOne({ username });
 
-    var skill_index = user.skills.findIndex(name);
+    var num_of_skills = user.skills.length;
+
+    for (let i = 0; i < num_of_skills; i++) {
+      var item = user.skills[i];
+      if (item.name == name) {
+        item.level = level;
+        item.progress = progress;
+      }
+    }
+
     await user.save();
 
     return res.status(201).json({
       message: "OK",
-      skill_index: skill_index,
-    });
-  } catch (error) {
-    console.log(error);
-    return res.status(200).json({ message: "ERROR", cause: error.message });
-  }
-};
-
-export const Logout = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    //privateprofile token check
-    const privateprofile = await User.findById(res.locals.jwtData.id);
-    if (!privateprofile) {
-      return res
-        .status(401)
-        .send("PrivateProfile not registered OR Token malfunctioned");
-    }
-    if (privateprofile._id.toString() !== res.locals.jwtData.id) {
-      return res.status(401).send("Permissions didn't match");
-    }
-
-    res.clearCookie(COOKIE_NAME, {
-      httpOnly: true,
-      domain: "localhost",
-      signed: true,
-      path: "/",
-    });
-
-    return res.status(200).json({
-      message: "OK",
-      username: privateprofile.username,
-      email: privateprofile.email,
+      skills: user.skills,
     });
   } catch (error) {
     console.log(error);

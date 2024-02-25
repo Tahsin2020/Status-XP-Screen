@@ -1,6 +1,5 @@
 import { Router } from "express";
 import {
-  getAllUsers,
   Login,
   Logout,
   Signup,
@@ -17,8 +16,6 @@ const userRoutes = Router();
 
 userRoutes.use("/skill", skillRoutes);
 
-userRoutes.get("/", getAllUsers);
-// Should I delete the above route?
 userRoutes.post("/signup", validate(signupValidator), Signup);
 userRoutes.post("/login", validate(loginValidator), Login);
 userRoutes.get("/auth-status", verifyToken, Verify);

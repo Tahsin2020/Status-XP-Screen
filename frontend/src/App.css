@@ -1,11 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html,
 body {
   background-color: rgba(19, 19, 19, 255);
 }
 
 .Player-Card {
-  height: 30vh;
-  padding: 100px;
+  min-height: 30vh;
+  padding: 50px;
+  padding-left: 100px;
   display: flex;
 }
 .Player-Icon {
@@ -19,7 +24,7 @@ body {
   border-radius: 100px;
 }
 .Player-Icon-Letter {
-  font-size: 128px;
+  font-size: 78px;
   color: #666666;
   background-color: black;
 }
@@ -46,7 +51,7 @@ body {
   justify-content: space-evenly;
   border-top: 5px solid rgb(41, 41, 41);
   border-bottom: 5px solid rgb(41, 41, 41);
-  max-height: 75vh;
+  min-height: 75vh;
   color: #ffffff;
   padding-left: 5%;
   padding-bottom: 5%;
@@ -111,8 +116,8 @@ body {
 .Prompt-Box {
   opacity: 100%;
   background-color: #ffffff;
-  width: 30vw;
-  height: 30vh;
+  width: 350px;
+  height: 40%;
   border: 10px solid gray;
 }
 .form {

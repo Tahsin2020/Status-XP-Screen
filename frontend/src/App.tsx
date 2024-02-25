@@ -1,154 +1,21 @@
-import useWindowDimensions from "./components/windowDimensions";
-import data from "./skills.json";
-import "./App.css";
-import { useState, useEffect } from "react";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Notfound from "./pages/Notfound";
+import Signup from "./pages/Signup";
+import { Routes, Route } from "react-router-dom";
 
-type Skill = {
-  skill_name: string;
-  skill_level: Number;
-  skill_progress: Number;
-};
-
-const App = () => {
-  const [AddSkill, setAddSkill] = useState(false);
-  var data_skills: Skill[] = [];
-
-  const [skills, setSkills] = useState({
-    "Meditation Breathing": [2, 30],
-    "Meditation Sensing": [3, 60],
-    "Meditation Duration": [1, 30],
-    Determination: [0, 30],
-    Javascript: [1, 30],
-  });
-  const { height, width } = useWindowDimensions();
-
-  const handleAddSkill = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const Skill_Title = formData.get("skill-title") as string;
-    const Skill_Level = Number(formData.get("skill-level") as string);
-
-    if (skills[Skill_Title] == undefined) {
-      var copy_skills = { ...skills };
-      copy_skills[Skill_Title] = [Skill_Level, 30];
-      setSkills(copy_skills);
-    }
-    setAddSkill(false);
-  };
-
+function App() {
   return (
-    <div style={{ height: "100%" }}>
-      {AddSkill ? (
-        <div className="Prompt">
-          <div className="Prompt-Box">
-            <form action="#" onSubmit={handleAddSkill} className="form">
-              <div>
-                <input
-                  name="skill-title"
-                  type="text"
-                  placeholder="Skill Title"
-                  className="form-input"
-                  id="skill-title"
-                  required
-                />
-                <input
-                  name="skill-level"
-                  type="number"
-                  placeholder="Skill Level"
-                  className="form-input"
-                  id="skill-level"
-                  required
-                />
-              </div>
-              <div>
-                <button
-                  style={{
-                    marginTop: "5%",
-                    backgroundColor: "skyblue",
-                    color: "white",
-                    borderRadius: "10px",
-                    width: "85%",
-                    fontSize: "24px",
-                    padding: "1%",
-                  }}
-                  type="submit"
-                >
-                  Add Skill?
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      ) : (
-        <></>
-      )}
-      {width} by {height} pixels
-      <div className="Player-Card">
-        <div className="Player-Icon">
-          <div className="Player-Icon-Letter">T</div>
-        </div>
-        <div className="Player-Info">
-          <div className="Player-Name">Tahsin Hasan</div>
-          <div className="Player-Title">Full Stack Software Engineer</div>
-          <div className="Player-Level">Level 50</div>
-        </div>
-      </div>
-      <div className="skill-table">
-        {Object.keys(skills).map((key: String) => {
-          return (
-            <div className="skill">
-              <div className="skill-name">{key}</div>
-              <div className="skill-bar">
-                <div
-                  style={{
-                    width: skills[key][1].toString() + "%",
-                    height: "100%",
-                    backgroundColor: "green",
-                  }}
-                ></div>
-              </div>
-              <div className="skill-level">{skills[key][0]}</div>
-              <div
-                className="skill-up"
-                onClick={() => {
-                  var copy_skills = { ...skills };
-                  copy_skills[key][0] = copy_skills[key] + 1;
-                  setSkills(copy_skills);
-                }}
-              >
-                +
-              </div>
-              <div
-                className="skill-down"
-                onClick={() => {
-                  var copy_skills = { ...skills };
-                  copy_skills[key][0] = copy_skills[key] - 1;
-                  setSkills(copy_skills);
-                }}
-              >
-                -
-              </div>
-              <div
-                className="skill-delete"
-                onClick={() => {
-                  var copy_skills = { ...skills };
-                  delete copy_skills[key];
-                  setSkills(copy_skills);
-                }}
-              >
-                x
-              </div>
-            </div>
-          );
-        })}
-        <div className="skill">
-          <button className="Skill-Add" onClick={() => setAddSkill(true)}>
-            Add Skill?
-          </button>
-        </div>
-      </div>
-    </div>
+    <main>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/rpg" element={<Home />} />
+        <Route path="*" element={<Notfound />} />
+      </Routes>
+    </main>
   );
-};
+}
 
 export default App;

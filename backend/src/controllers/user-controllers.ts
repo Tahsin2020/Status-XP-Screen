@@ -4,21 +4,6 @@ import { createToken } from "../utils/token-manager.js";
 import { COOKIE_NAME } from "../utils/constant.js";
 import User from "../models/User.js";
 
-export const getAllUsers = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    //get all privateprofiles
-    const privateprofiles = await User.find();
-    return res.status(200).json({ message: "OK", privateprofiles });
-  } catch (error) {
-    console.log(error);
-    return res.status(200).json({ message: "ERROR", cause: error.message });
-  }
-};
-
 export const Signup = async (
   req: Request,
   res: Response,
@@ -26,21 +11,21 @@ export const Signup = async (
 ) => {
   // I have to retrieve stuff from the body to put into sign up (like what skills do they want, location etc.)
   try {
-    //privateprofile signup
+    //user signup
     const { name, username, email, password } = req.body;
-    const existingPrivateProfile = await User.findOne({ email });
-    if (existingPrivateProfile)
-      return res.status(401).send("private profile already registered");
+    const Existing_user = await User.findOne({ email });
+    if (Existing_user) return res.status(401).send("user already registered");
 
     const hashedPassword = await hash(password, 10);
 
-    const privateprofile = new User({
+    const user = new User({
       name: name,
       username: username,
       email,
       password: hashedPassword,
+      skills: [],
     });
-    await privateprofile.save();
+    await user.save();
 
     // create token and store cookie.
 
@@ -51,11 +36,7 @@ export const Signup = async (
       path: "/",
     });
 
-    const token = createToken(
-      privateprofile._id.toString(),
-      privateprofile.email,
-      "7d"
-    );
+    const token = createToken(user._id.toString(), user.email, "7d");
 
     const expires = new Date();
     expires.setDate(expires.getDate() + 7);
@@ -70,8 +51,8 @@ export const Signup = async (
 
     return res.status(201).json({
       message: "OK",
-      username: privateprofile.username,
-      email: privateprofile.email,
+      username: user.username,
+      email: user.email,
     });
   } catch (error) {
     console.log(error);
@@ -85,13 +66,13 @@ export const Login = async (
   next: NextFunction
 ) => {
   try {
-    //privateprofile login
+    //user login
     const { email, password } = req.body;
-    const privateprofile = await User.findOne({ email });
-    if (!privateprofile) {
-      return res.status(401).send("PrivateProfile not registered");
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(401).send("user not registered");
     }
-    const isPasswordCorrect = await compare(password, privateprofile.password);
+    const isPasswordCorrect = await compare(password, user.password);
     if (!isPasswordCorrect) {
       return res.status(403).send("Incorrect Password");
     }
@@ -103,11 +84,7 @@ export const Login = async (
       path: "/",
     });
 
-    const token = createToken(
-      privateprofile._id.toString(),
-      privateprofile.email,
-      "7d"
-    );
+    const token = createToken(user._id.toString(), user.email, "7d");
 
     const expires = new Date();
     expires.setDate(expires.getDate() + 7);
@@ -122,8 +99,8 @@ export const Login = async (
 
     return res.status(200).json({
       message: "OK",
-      username: privateprofile.username,
-      email: privateprofile.email,
+      username: user.username,
+      email: user.email,
     });
   } catch (error) {
     console.log(error);
@@ -137,20 +114,18 @@ export const Verify = async (
   next: NextFunction
 ) => {
   try {
-    //privateprofile token check
-    const privateprofile = await User.findById(res.locals.jwtData.id);
-    if (!privateprofile) {
-      return res
-        .status(401)
-        .send("PrivateProfile not registered OR Token malfunctioned");
+    //user token check
+    const user = await User.findById(res.locals.jwtData.id);
+    if (!user) {
+      return res.status(401).send("user not registered OR Token malfunctioned");
     }
-    if (privateprofile._id.toString() !== res.locals.jwtData.id) {
+    if (user._id.toString() !== res.locals.jwtData.id) {
       return res.status(401).send("Permissions didn't match");
     }
     return res.status(200).json({
       message: "OK",
-      username: privateprofile.username,
-      email: privateprofile.email,
+      username: user.username,
+      email: user.email,
     });
   } catch (error) {
     console.log(error);
@@ -164,14 +139,12 @@ export const Logout = async (
   next: NextFunction
 ) => {
   try {
-    //privateprofile token check
-    const privateprofile = await User.findById(res.locals.jwtData.id);
-    if (!privateprofile) {
-      return res
-        .status(401)
-        .send("PrivateProfile not registered OR Token malfunctioned");
+    //user token check
+    const user = await User.findById(res.locals.jwtData.id);
+    if (!user) {
+      return res.status(401).send("user not registered OR Token malfunctioned");
     }
-    if (privateprofile._id.toString() !== res.locals.jwtData.id) {
+    if (user._id.toString() !== res.locals.jwtData.id) {
       return res.status(401).send("Permissions didn't match");
     }
 
@@ -184,8 +157,8 @@ export const Logout = async (
 
     return res.status(200).json({
       message: "OK",
-      username: privateprofile.username,
-      email: privateprofile.email,
+      username: user.username,
+      email: user.email,
     });
   } catch (error) {
     console.log(error);
@@ -199,7 +172,7 @@ export const ResetPasswordRequest = async (
   next: NextFunction
 ) => {
   const { email } = req.body;
-  const privateprofile = await User.findOne({ email });
+  const user = await User.findOne({ email });
   /*
   var transporter = nodemailer.createTransport({
     service: "gmail",
@@ -222,7 +195,7 @@ export const ResetPasswordRequest = async (
     }
   });
 */
-  //Link - {path} + privateprofile.password -> I can encrypt this some more.
+  //Link - {path} + user.password -> I can encrypt this some more.
 
   // Send to user in email along with dialog explaining usage.
 };
