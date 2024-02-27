@@ -117,6 +117,11 @@ const Home = () => {
           <div className="Player-Title">Full Stack Software Engineer</div>
           <div className="Player-Level">Level 50</div>
         </div>
+        <div>
+          {/* <button className="Skill-Add" style={{ height: "100px" }}>
+            Save Skills and Skill Levels/Progress
+          </button> */}
+        </div>
       </div>
       <div className="skill-table">
         {Object.keys(data_skills).map((key, index) => {

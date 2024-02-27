@@ -12,6 +12,8 @@ body {
   padding: 50px;
   padding-left: 100px;
   display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .Player-Icon {
   background-color: black;
