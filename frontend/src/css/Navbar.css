@@ -1,6 +1,6 @@
 .Navbar {
   background-color: black;
   width: 100vw;
-  height: 20vh;
+  padding: 20px;
   position: fixed;
 }

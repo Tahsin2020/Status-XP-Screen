@@ -1,3 +1,4 @@
+import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Notfound from "./pages/Notfound";
@@ -7,6 +8,7 @@ import { Routes, Route } from "react-router-dom";
 function App() {
   return (
     <main>
+      <Navbar />
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/login" element={<Login />} />
