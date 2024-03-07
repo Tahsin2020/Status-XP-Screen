@@ -5,18 +5,21 @@ const Navbar = () => {
     <>
       <div className="Navbar">
         <Link
+          className="hover:underline"
           to={"/signup"}
           style={{ color: "white", padding: "20px", marginTop: "20px" }}
         >
           Sign Up
         </Link>
         <Link
+          className="hover:underline"
           to={"/login"}
           style={{ color: "white", padding: "20px", marginTop: "20px" }}
         >
           Log in
         </Link>
         <Link
+          className="hover:underline"
           to={"/rpg"}
           style={{
             color: "white",
@@ -28,7 +31,7 @@ const Navbar = () => {
           RPG
         </Link>
       </div>
-      <div style={{ height: "20px" }}></div>
+      <div style={{ height: "60px" }}></div>
     </>
   );
 };

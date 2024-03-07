@@ -12,7 +12,7 @@ export const Signup = async (
   // I have to retrieve stuff from the body to put into sign up (like what skills do they want, location etc.)
   try {
     //user signup
-    const { name, username, email, password } = req.body;
+    const { name, username, email, password, position } = req.body;
     const Existing_user = await User.findOne({ email });
     if (Existing_user) return res.status(401).send("user already registered");
 
@@ -24,6 +24,7 @@ export const Signup = async (
       email,
       password: hashedPassword,
       skills: [],
+      position: position,
     });
     await user.save();
 
@@ -51,6 +52,8 @@ export const Signup = async (
 
     return res.status(201).json({
       message: "OK",
+      name: user.name,
+      position: user.position,
       username: user.username,
       email: user.email,
     });
@@ -99,6 +102,8 @@ export const Login = async (
 
     return res.status(200).json({
       message: "OK",
+      name: user.name,
+      position: user.position,
       username: user.username,
       email: user.email,
     });
@@ -124,6 +129,8 @@ export const Verify = async (
     }
     return res.status(200).json({
       message: "OK",
+      name: user.name,
+      position: user.position,
       username: user.username,
       email: user.email,
     });

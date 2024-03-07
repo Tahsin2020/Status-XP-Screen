@@ -13,13 +13,15 @@ export const signupUser = async (
   name: string,
   username: string,
   email: string,
-  password: string
+  password: string,
+  position: string
 ) => {
   const res = await axios.post("/user/signup", {
     name,
     username,
     email,
     password,
+    position,
   });
   if (res.status !== 201) {
     throw new Error("Unable to Signup");

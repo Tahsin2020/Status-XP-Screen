@@ -17,6 +17,7 @@ type User = {
   username: string;
   name: string;
   email: string;
+  position: string;
 };
 type UserAuth = {
   isLoggedIn: boolean;
@@ -26,7 +27,8 @@ type UserAuth = {
     name: string,
     username: string,
     email: string,
-    password: string
+    password: string,
+    position: string
   ) => Promise<void>;
   logout: () => Promise<void>;
 };
@@ -44,7 +46,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         setUser({
           username: data.username,
           email: data.email,
-          name: data.username,
+          name: data.name,
+          position: data.position,
         });
         setIsLoggedIn(true);
       }
@@ -58,6 +61,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         username: data.username,
         email: data.email,
         name: data.name,
+        position: data.position,
       });
       setIsLoggedIn(true);
     }
@@ -66,14 +70,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     name: string,
     username: string,
     email: string,
-    password: string
+    password: string,
+    position: string
   ) => {
-    const data = await signupUser(name, username, email, password);
+    const data = await signupUser(name, username, email, password, position);
     if (data) {
+      console.log(data);
       setUser({
         username: data.username,
         email: data.email,
         name: data.name,
+        position: data.position,
       });
       setIsLoggedIn(true);
     }

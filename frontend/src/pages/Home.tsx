@@ -21,6 +21,7 @@ const Home = () => {
   const [username, setUsername] = useState("");
   var [data_skills, setData_skills] = useState({});
   const auth = useAuth();
+  console.log(auth?.user)
 
   useEffect(() => {
     if (Object.keys(data_skills).length === 0)
@@ -113,8 +114,8 @@ const Home = () => {
           <div className="Player-Icon-Letter">T</div>
         </div>
         <div className="Player-Info">
-          <div className="Player-Name">Tahsin Hasan</div>
-          <div className="Player-Title">Full Stack Software Engineer</div>
+          <div className="Player-Name">{auth?.user?.name}</div>
+          <div className="Player-Title">{auth?.user?.position}</div>
           <div className="Player-Level">Level 50</div>
         </div>
         <div>
