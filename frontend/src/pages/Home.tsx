@@ -21,7 +21,7 @@ const Home = () => {
   const [username, setUsername] = useState("");
   var [data_skills, setData_skills] = useState({});
   const auth = useAuth();
-  console.log(auth?.user)
+  var level = 0;
 
   useEffect(() => {
     if (Object.keys(data_skills).length === 0)
@@ -32,11 +32,13 @@ const Home = () => {
             .then((data) => {
               for (let i = 0; i < data.skills.length; i++) {
                 let skill = data.skills[i];
+                level = level + Number(skill.level);
                 data_skills[skill.name] = [
                   Number(skill.level),
                   Number(skill.progress),
                 ];
               }
+              level = level / data.skills.length;
               setData_skills({ ...data_skills });
             })
             .catch((err) => {
@@ -111,12 +113,12 @@ const Home = () => {
       )}
       <div className="Player-Card">
         <div className="Player-Icon">
-          <div className="Player-Icon-Letter">T</div>
+          <div className="Player-Icon-Letter">{auth?.user?.name[0]}</div>
         </div>
         <div className="Player-Info">
           <div className="Player-Name">{auth?.user?.name}</div>
           <div className="Player-Title">{auth?.user?.position}</div>
-          <div className="Player-Level">Level 50</div>
+          <div className="Player-Level">Level {level}</div>
         </div>
         <div>
           {/* <button className="Skill-Add" style={{ height: "100px" }}>
