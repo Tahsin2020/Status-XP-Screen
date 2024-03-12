@@ -113,7 +113,9 @@ const Home = () => {
       )}
       <div className="Player-Card">
         <div className="Player-Icon">
-          <div className="Player-Icon-Letter">{auth?.user?.name[0]}</div>
+          <div className="Player-Icon-Letter">
+            {auth?.user?.name.substring(0, 1).toUpperCase()}
+          </div>
         </div>
         <div className="Player-Info">
           <div className="Player-Name">{auth?.user?.name}</div>
