@@ -21,7 +21,7 @@ const Home = () => {
   const [username, setUsername] = useState("");
   var [data_skills, setData_skills] = useState({});
   const auth = useAuth();
-  var level = 0;
+  var level = 1;
 
   useEffect(() => {
     if (Object.keys(data_skills).length === 0)
@@ -38,7 +38,8 @@ const Home = () => {
                   Number(skill.progress),
                 ];
               }
-              level = level / data.skills.length;
+              if (data.skills)
+                if (data.skills.length != 0) level = level / data.skills.length;
               setData_skills({ ...data_skills });
             })
             .catch((err) => {
